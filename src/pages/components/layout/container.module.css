@@ -1,0 +1,46 @@
+.container {
+    min-height: 100vh;
+    width: 98%;
+    margin: 1%;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    padding: 4% 5%;
+}
+
+
+.container h2 {
+    font: normal normal normal 3vw Poppins;
+    margin-top: 0%;
+}
+
+.container h3 {
+    font: normal normal normal 1.3vw Poppins;
+    margin: 0%;
+    font-weight: 600;
+}
+.container p {
+    font: normal normal normal 1.2vw Poppins;
+    margin: 0;
+}
+
+
+
+@media only screen and (max-width: 540px) {
+
+    .container {
+        padding: 4% 2%;
+    }
+
+    .container h2 {
+        font-size: 6vw;
+    }
+
+    .container h3 {
+        font: normal normal normal 2.3vw Poppins;
+        margin: 0%;
+        font-weight: 600;
+    }
+
+    .container p {
+        font: normal normal normal 2.3vw Poppins;
+    }
+}

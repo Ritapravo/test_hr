@@ -1,0 +1,251 @@
+/* .container {
+    min-height: 100vh;
+    width: 98%;
+    margin: 1%;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    padding: 4% 5%;
+}
+
+
+.container h2 {
+    font: normal normal normal 3vw Poppins;
+    margin-top: 0%;
+}
+
+.container h3 {
+    font: normal normal normal 1.3vw Poppins;
+    margin: 0%;
+    font-weight: 600;
+}
+.container p {
+    font: normal normal normal 1.2vw Poppins;
+    margin: 0;
+} */
+.case_summary_button {
+    width: 18vw;
+    margin-top: 5vh!important;
+    margin-bottom: 1.5vh!important;
+    margin-right: 2vw!important;
+    background: #B3DCFC!important;
+    color: black!important;
+    font-weight: 500;
+}
+.case_summary_button:hover {
+    background: #B3DCFC;
+
+}
+.downloadButton {
+
+    width: 4vw;
+    height: 4vw;
+    background: #B3DCFC 0% 0% no-repeat padding-box;
+    border-radius: 11px;
+    opacity: 1;
+    display: inline-block;
+    /* padding-top: 20px; */
+    margin: 0 1vw;
+    background: transparent url('./../../../public/download.png') 0% 0% no-repeat padding-box;
+    background-size: cover;
+    transform: translate(0, 20%);
+}
+
+.downloadButton:hover {
+    cursor: pointer;
+}
+
+.downloaded {
+    width: 250px;
+    height: 33px;
+    text-align: left;
+    font: normal normal normal 24px/35px Poppins;
+    letter-spacing: 0px;
+    color: #8E1B1B;
+    opacity: 1;
+    display: inline-block;
+    transform: translate(0,-30%);
+}
+
+
+
+
+.staging_options {
+    width: 8vw;
+    margin-top: 5vh!important;
+    margin-bottom: 1.5vh!important;
+    margin-right: 2vw!important;
+    background: #ebf7f8;
+    color: black;
+    font-weight: 400;
+}
+
+
+
+
+
+
+
+@media only screen and (max-width: 540px) {
+
+    /* .container {
+        padding: 4% 2%;
+    }
+
+    .container h2 {
+        font-size: 6vw;
+    }
+
+    .container h3 {
+        font: normal normal normal 2.3vw Poppins;
+        margin: 0%;
+        font-weight: 600;
+    }
+
+    .container p {
+        font: normal normal normal 2.3vw Poppins;
+    } */
+
+    .case_summary_button {
+        width: 35vw;
+    }
+
+
+    .modal h2 {
+        font: normal normal normal 5vw Poppins;
+    }
+
+}
+
+
+
+/* ======================== writer_landing_page.js ======================== */
+
+.profile_info {
+    /* width: 73%; */
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
+    margin-left: 3vw;
+    transform: translate(0, -1.1vw);
+}
+
+.profile_info h2 {
+    margin-bottom: 0vh;
+}
+
+.profile_image {
+    /* top: 80px;
+    left: 62px; */
+    width: 8vw;
+    height: 8vw;
+    opacity: 1;
+    border-radius: 50%;
+    display: inline-block;
+    background-image: url('./../../../public/profile_img.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: 2px solid rgb(161, 161, 213);
+}
+
+
+
+
+
+
+@media only screen and (max-width: 540px) {
+    .profile_image {
+        width: 12vw;
+        height: 12vw;
+    }
+}
+
+
+/* ========================== TNM ===================== */
+
+.inputs {
+    width: 18%;
+    text-align: left;
+    display: inline-block;
+    margin-top: 1vh;
+}
+
+.text_field p {
+    /* transform: translate(10%, 40%); */
+    width: 100%;
+}
+
+.inputs_checkbox{
+    width: 15%;
+    text-align: left;
+    display: inline-block;
+    margin-top: 1vh;
+}
+
+.double_input{
+    width: 26%;
+    text-align: left;
+    display: inline-block;
+    margin-top: 1vh;
+}
+.inputs_p {
+
+    /* padding: 0px 25px; */
+    display: inline-block;
+    font: normal normal normal 19px/35px Poppins;
+    letter-spacing: 0px;
+    color: #707070;
+    opacity: 1;
+    margin-left: 1vw;
+    /* transform: translate(0%, 0%); */
+}
+
+
+
+.text_field {
+    /* transform: translate(0%, 60%); */
+    width: 45%;
+    height: 4vh;
+    position: relative;
+    padding-left: 5px!important;
+    margin-left: 1vw;
+    /* float: right; */
+    background: #E4E4E4 0% 0% no-repeat padding-box;
+    border-radius: 26px;
+    border: #FFFFFF;
+    padding: 0px 10px;
+    margin-right: 1vw!important;
+}
+
+.text_field input {
+    transform: translate(0%, 8%)!important;
+    color: #707070;
+    text-align: center;
+    
+}
+
+.text_field [type="file" i]{
+    transform: translate(0%, 8%)!important;
+}
+
+.table_report svg {
+    width: 1.5vw;
+    height: 1.5vw;
+}
+
+@media only screen and (max-width: 540px) {
+    .table_report svg {
+        width: 3vw;
+        height: 3vw;
+    }
+    .inputs {
+        width: 50%;
+        text-align: left;
+        display: inline-block;
+    }
+    .inputs_checkbox{
+        width: 70%;
+    }
+    .double_input{
+        width: 50%;
+    }
+}

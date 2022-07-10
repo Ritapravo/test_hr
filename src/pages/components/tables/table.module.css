@@ -1,0 +1,89 @@
+.table_report {
+    width: 85vw ;
+    /* margin-top: 50px; */
+    text-align: center;
+    background: #E4E4E4 0% 0% no-repeat padding-box !important;
+    border-radius: 11px;
+}
+
+.table_report p {
+    display: inline-block;
+}
+
+.tableRow .tableCell {
+    padding: 1vw !important;
+}
+
+.tableRow{
+    border-bottom: 1.5px solid rgb(147, 134, 134) !important;
+}
+
+.tableRow2 {
+    border-top: 1.5px solid rgb(147, 134, 134) !important;
+    border-bottom: 1.5px solid rgb(147, 134, 134) !important;
+}
+
+.tableCell {
+    border-right: 1.5px solid rgb(147, 134, 134) !important;
+    text-align: center !important;
+    padding-left: 0;
+    padding-right: 0;
+    padding: 0% !important;
+}
+
+.tableCellEnd {
+    text-align: center !important;
+    padding: 0 !important;
+}
+
+
+.tableCellEnd_p{
+    width: 45%;
+}
+
+.tableCellEnd Button {
+    /* display: inline-block; */
+    /* float: right; */
+    min-width: 40%;
+    margin: 1vw;
+    /* margin: 10px;
+    margin-right: 20px; */
+}
+
+.table_report svg {
+    width: 1.5vw;
+    height: 1.5vw;
+}
+
+.tableCell_tnm_radio{
+    border-right: 1.5px solid rgb(147, 134, 134) !important;
+    text-align: left !important;
+    padding: 0% !important;
+    padding-left: 5%!important;
+}
+
+@media only screen and (max-width: 540px) {
+    .table_report {
+        width: 90vw;
+    }
+
+    .tableCellEnd Button {
+        padding: 0;
+        margin: 0%;
+        width: 80%;
+        float:none;
+    }
+
+    .tableCell p{
+        margin: 1vw;
+    }
+
+    .tableCellEnd_p{
+        width: 80%;
+    }
+
+    .table_report svg {
+        width: 3vw;
+        height: 3vw;
+    }
+}

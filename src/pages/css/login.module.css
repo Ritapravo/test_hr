@@ -1,0 +1,243 @@
+.container_cover {
+    /* position: absolute; */
+    width: 100%;
+    min-height: 100%;
+    background: #E1F2FF 0% 0% no-repeat padding-box;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 4%;
+    position: relative;
+}
+
+.container {
+    /* top: 193px;
+    left: 570px; */
+    width: 550px;
+    height: 82%;
+    /* height: 700px;; */
+    /* margin: 4% 30%; */
+    /* margin-top: 4%;
+    margin-bottom: 2%; */
+    margin: auto;
+    /* UI Properties */
+    background: #B3DCFC 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #00000029;
+    border-radius: 38px;
+    opacity: 1;
+    text-align: center;
+
+}
+
+.p_end {
+    /* top: 90%;
+    position: inherit; */
+}
+
+.p_end a {
+    color: blue;
+}
+
+
+.h2 {
+    font: normal normal medium 36px/55px Poppins;
+    padding: 10px;
+    opacity: 0.5;
+    margin: 10px;
+}
+
+
+
+.inputs {
+    width: 100%;
+    text-align: left;
+}
+
+.text_field p {
+    transform: translate(10%, 40%);
+}
+
+.inputs_p {
+
+    /* padding: 0px 25px; */
+    display: inline-block;
+    font: normal normal normal 19px/35px Poppins;
+    letter-spacing: 0px;
+    color: #707070;
+    opacity: 1;
+    margin-left: 30px;
+    /* transform: translate(0%, 0%); */
+}
+
+
+
+.text_field {
+    transform: translate(0%, 60%);
+    width: 45%;
+    height: 35px;
+    position: relative;
+    float: right;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border-radius: 26px;
+    border: #FFFFFF;
+    padding: 0px 10px;
+    margin-right: 2vw !important;
+}
+
+.text_field input {
+    transform: translate(0%, 20%);
+    text-align: center;
+}
+
+
+.helperText {
+    font-size: small;
+    float: left;
+}
+
+.submit_button {
+    border-radius: 26px !important;
+    padding: 7px 50px !important;
+    background: #8E1B1B 0% 0% no-repeat padding-box !important;
+    font: normal normal normal 22px/30px Poppins !important;
+}
+
+
+@media only screen and (max-width: 540px) {
+
+    .container_cover{
+        padding: 0%;
+    }
+
+    .container {
+        height: 98vh;
+        margin: 1vw 1vw;
+    }
+
+    .inputs {
+        display: flex;
+        justify-content: center;
+    }
+
+    .inputs .text_field {
+        width: 90%;
+        margin-right: 10px;
+        transform: translate(0%, 40%);
+    }
+
+    .inputs .text_field p {
+        transform: translate(10%, 40%);
+        font-size: 57%
+    }
+
+
+    .inputs_p {
+        width: 100%;
+        display: block;
+        /* margin-bottom: 10px; */
+        color: #707070;
+        opacity: 1;
+        margin-left: 20px;
+        font-size: 100%;
+    }
+
+}
+
+
+
+/*  =================== FOR LOGIN PAGE ==================== */
+
+.container2 {
+    /* top: 193px;
+    left: 570px; */
+    width: 650px;
+    height: 70vh;
+    /* margin: 4% 30%; */
+    margin-top: 5%;
+    margin-bottom: 4%;
+    /* UI Properties */
+    background: #B3DCFC 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #00000029;
+    border-radius: 38px;
+    opacity: 1;
+    text-align: center;
+    /* position: inherit; */
+}
+
+.login_option {
+    width: 50%;
+    height: 61px;
+    background: #E1F2FF 0% 0% no-repeat padding-box;
+    display: inline-block;
+    cursor: pointer;
+    margin-bottom: 50px;
+}
+
+.inputs2 {
+    width: 100%;
+    text-align: left;
+}
+
+.inputs2_p {
+
+    /* padding: 0px 25px; */
+    display: inline-block;
+    font: normal normal normal 24px/35px Poppins;
+    letter-spacing: 0px;
+    color: #707070;
+    opacity: 1;
+    margin-left: 1vw;
+}
+
+.inputs2 .text_field {
+    width: 60%;
+    margin-right: 2vw;
+    background-color: #FFFFFF;
+}
+
+.inputs2 .text_field input {
+    margin: 0 2vw;
+}
+
+
+.p_end2 {
+    top: 80%;
+    position: inherit;
+}
+
+.p_end2 a {
+    color: blue;
+}
+
+@media only screen and (max-width: 540px) {
+
+    .container2 {
+        height: 98vh;
+        margin: 1vw;
+    }
+
+    .inputs2 {
+        /* display: flex; */
+        /* justify-content: center; */
+    }
+
+    .inputs2 .text_field {
+        
+        margin-right: 1vw;
+        transform: translate(0%, 40%);
+        
+    }
+
+    .inputs2_p {
+        /* width: 100%; */
+        display: inline-block;
+        /* margin-bottom: 10px; */
+        color: #707070;
+        opacity: 1;
+        margin-left: 1vw;
+        font-size: 100%;
+    }
+
+
+}
