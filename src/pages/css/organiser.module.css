@@ -34,10 +34,14 @@
     background: #B3DCFC;
 
 }
+.case_summary_button svg {
+    width: 1.5vw;
+    height: 1.5vw;
+}
 .downloadButton {
 
-    width: 4vw;
-    height: 4vw;
+    width: 3.5vw;
+    height: 3.5vw;
     background: #B3DCFC 0% 0% no-repeat padding-box;
     border-radius: 11px;
     opacity: 1;
@@ -63,6 +67,7 @@
     opacity: 1;
     display: inline-block;
     transform: translate(0,-30%);
+    cursor: pointer;
 }
 
 
@@ -105,9 +110,17 @@
     } */
 
     .case_summary_button {
-        width: 35vw;
+        width: 40vw;
+    }
+    .case_summary_button svg {
+        width: 3vw;
+        height: 3vw;
     }
 
+    .downloadButton {
+        width: 7vw;
+        height: 7vw;
+    }
 
     .modal h2 {
         font: normal normal normal 5vw Poppins;

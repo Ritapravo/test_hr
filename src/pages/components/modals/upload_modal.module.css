@@ -42,7 +42,7 @@
 
 
 .case_summary_button {
-    width: 18vw;
+    min-width: 18vw;
     margin-top: 5vh;
     margin-bottom: 1.5vh;
     margin-right: 2vw;
@@ -150,9 +150,24 @@
     font-weight: 500;
 }
 
+.case_summary_button svg {
+    width: 1.5vw;
+    height: 1.5vw;
+}
 
 
 .case_summary_button:hover {
     background: #B3DCFC;
 
+}
+
+@media only screen and (max-width: 540px) {
+    .case_summary_button{
+        width: 40vw;
+    }
+
+    .case_summary_button svg {
+        width: 3vw;
+        height: 3vw;
+    }
 }

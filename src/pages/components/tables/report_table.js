@@ -1,15 +1,17 @@
 import { React, useState } from 'react';
-import { Button, MenuItem,TableContainer, Table, TableBody, TableCell, TableRow, TableRowTextField, TextField } from '@mui/material';
+import { Button, MenuItem, TableContainer, Table, TableBody, TableCell, TableRow, TableRowTextField, TextField } from '@mui/material';
 import styles from './table.module.css';
 
 import DeleteIcon from '@mui/icons-material/Delete';
+
+const max =(a, b)=> {return a>b?a:b};
 
 
 const Report_table = (props) => {
     const { reports, deleteReport } = props;
     return (
         <div className={styles.table_report}>
-            <TableContainer sx={{ height: '30vh' }}>
+            <TableContainer sx={{ height: '35vh' }}>
                 <Table className={styles.TableBody}>
                     <TableBody className={styles.TableBody} >
                         <TableRow className={styles.tableRow}>
@@ -33,7 +35,16 @@ const Report_table = (props) => {
                             </TableRow>))
                         }
 
-                        
+                       
+                        {[...Array(max(6-reports.length, 0))].map((e, i) => (
+                            <TableRow className={styles.tableRow2} key={i}>
+                                <TableCell className={styles.tableCell} width='10%' ><h3></h3></TableCell>
+                                <TableCell className={styles.tableCell} width='15%' ><h3></h3></TableCell>
+                                <TableCell className={styles.tableCell} width='30%' ><h3></h3></TableCell>
+                                <TableCell width='40%' style={{ textAlign: 'center' }} ><h3 style={{ margin: '0' }}></h3></TableCell>
+                            </TableRow>))
+                        }
+
 
                     </TableBody>
                 </Table>

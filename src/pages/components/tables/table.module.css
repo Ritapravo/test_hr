@@ -19,12 +19,12 @@
 }
 
 .tableRow2 {
-    border-top: 1.5px solid rgb(147, 134, 134) !important;
-    border-bottom: 1.5px solid rgb(147, 134, 134) !important;
+    border-top: 1.2px solid rgb(192, 182, 182) !important;
+    /* border-bottom: 1.2px solid rgb(192, 182, 182) !important; */
 }
 
 .tableCell {
-    border-right: 1.5px solid rgb(147, 134, 134) !important;
+    border-right: 1.5px solid rgb(192, 182, 182) !important;
     text-align: center !important;
     padding-left: 0;
     padding-right: 0;

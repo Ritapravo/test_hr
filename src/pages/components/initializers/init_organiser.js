@@ -185,6 +185,8 @@ function getAge(dateString) {
   return age;
 }
 
+const base_url = "http://localhost:3001/api/organizers"
+
 
 export { useSessionStorage, report_types, reports_init, initial_report_entry, initial_staging,
-          tnm_init, tnm_map, tnm_staging_fields_init, patient_info_init };
+          tnm_init, tnm_map, tnm_staging_fields_init, patient_info_init, base_url };

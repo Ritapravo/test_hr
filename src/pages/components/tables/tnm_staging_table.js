@@ -5,7 +5,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Paper from '@mui/material/Paper';
 import { initial_staging } from '../initializers/init_organiser';
 
-
+const max =(a, b)=> {return a>b?a:b};
 
 const Tnm_staging_table = (props) => {
 
@@ -67,7 +67,7 @@ const Tnm_staging_table = (props) => {
 
     return (
         <Paper elevation={4} className={styles.table_report} >
-            <TableContainer sx={{ height: '30vh' }}>
+            <TableContainer sx={{ height: '35vh' }}>
                 <Table className={styles.TableBody}>
                     <TableBody className={styles.TableBody} >
                         <TableRow className={styles.tableRow}>
@@ -91,6 +91,15 @@ const Tnm_staging_table = (props) => {
                                             <DeleteIcon style={{ float: 'right', cursor: 'pointer', marginRight: '1vw' }} onClick={() => deleteStaging(item)} />
                                         }</p>
                                 </TableCell>
+                            </TableRow>))
+                        }
+
+                        {[...Array(max(6-staging.length, 0))].map((e, i) => (
+                            <TableRow className={styles.tableRow2} key={i}>
+                                <TableCell className={styles.tableCell} width='10%' ><h3></h3></TableCell>
+                                <TableCell className={styles.tableCell} width='15%' ><h3></h3></TableCell>
+                                <TableCell className={styles.tableCell} width='30%' ><h3></h3></TableCell>
+                                <TableCell width='40%' style={{ textAlign: 'center' }} ><h3 style={{ margin: '0' }}></h3></TableCell>
                             </TableRow>))
                         }
 

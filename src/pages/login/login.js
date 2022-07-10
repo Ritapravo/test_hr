@@ -2,6 +2,7 @@ import { TextField, Button } from '@mui/material';
 import { React, useState } from 'react';
 import styles from './../css/login.module.css'
 import {Link, useNavigate } from "react-router-dom";
+import { base_url } from '../components/initializers/init_organiser';
 
 const initial_values1 = {
     "email": '',
@@ -17,7 +18,8 @@ const Login = () => {
         console.log(values);
         // console.log(temp_val);
         if (temp_val) {
-            Navigate('/organiser_landing_page');
+            PostData(values)
+            // Navigate('/organiser_landing_page');
         }
         else
             alert("Check for incorrect fields");
@@ -25,7 +27,7 @@ const Login = () => {
 
     const PostData = async (jsonData) => {
         console.log("Helooo");
-        const res = await fetch("http://localhost:3001/api/organizers/loginPassword", {
+        const res = await fetch(`${base_url}/loginPassword`, {
             method: "POST",
             headers: {
                 "Content-type": "application/json",
@@ -39,11 +41,11 @@ const Login = () => {
             window.alert(`Could  not Login\nError ${data.message}`);
             console.log(`Could  not Login\nError ${data.message}`);
         } else {
-            console.log(data);
-            window.alert("Successfully posted data");
+            // console.log(data);
+            window.alert("Logged in successfully");
             console.log("Successfully posted data");
             sessionStorage.setItem("organiser_details", JSON.stringify(data.userDetails));
-            
+            Navigate('/organiser_landing_page');
         }
     };
 

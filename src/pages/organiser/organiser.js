@@ -5,13 +5,14 @@ import { Link, useNavigate } from "react-router-dom";
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import Grid from '@mui/material/Grid';
-import { useSessionStorage } from '../components/initializers/init_organiser';
+import { useSessionStorage, base_url } from '../components/initializers/init_organiser';
 import Report_upload_modal from '../components/modals/upload_modal';
 import Patient_diagnosis from '../components/diagnosis/diagnosis';
 import Instructions from '../components/instructions/instructions';
 import Report_table from '../components/tables/report_table';
 import Tnm_staging_table from '../components/tables/tnm_staging_table';
 import Container from '../components/layout/container';
+
 
 
 const Organiser = () => {
@@ -57,8 +58,10 @@ const Organiser = () => {
         Patient Id : {patient_details.p_id}
       </h2>
 
-      <div className={styles.downloadButton} onClick={handleDownload}></div>
-      {downloaded && <div className={styles.downloaded}> <p>Download complete!</p></div>}
+      <a href={`${base_url}/getAllPatientReports/62caf645de65d0adb085c594`}>
+      <div className={styles.downloadButton} onClick={()=>setDownloaded(true)}></div>
+      </a>
+      {downloaded && <div className={styles.downloaded} onClick={()=>setDownloaded(false)}> <p>Download complete!</p></div>}
 
       <Grid container spacing={1}>
         <Grid item xs={12} sm={6}>

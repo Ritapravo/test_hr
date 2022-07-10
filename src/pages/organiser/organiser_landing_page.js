@@ -4,6 +4,7 @@ import styles from './../css/organiser.module.css';
 import { Link, useNavigate } from "react-router-dom";
 import Organiser_task_table from '../components/tables/organiser_task_table';
 import Container from '../components/layout/container';
+import { useSessionStorage } from '../components/initializers/init_organiser';
 
 
 const initial_task_table = [
@@ -16,13 +17,13 @@ const initial_task_table = [
 
 const Organiser_landing_page = () => {
 
-  // var organiser_details;
+  var organiser_details;
 
-  // organiser_details = useSessionStorage("organiser_details");
+  organiser_details = useSessionStorage("organiser_details");
 
   const Navigate = useNavigate();
-  // const name = organiser_details.first_name;
-  const name = 'Ritapravo';
+  const name = organiser_details.first_name;
+  // const name = 'Ritapravo';
 
   // console.log(organiser_details);
 

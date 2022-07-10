@@ -2,7 +2,7 @@ import { TextField, Button } from '@mui/material';
 import { React, useState } from 'react';
 import styles from './../css/login.module.css'
 import { Link, useNavigate } from "react-router-dom";
-
+import { base_url } from '../components/initializers/init_organiser';
 
 const initial_values = {
     "phone_number": '',
@@ -26,8 +26,8 @@ const SignUp = () => {
         // console.log(temp_val);
         if (temp_val) {
             console.log('validated');
-            // PostData(jsonData);
-            Navigate('/login');
+            PostData(jsonData);
+            // Navigate('/login');
 
         }
         else
@@ -36,7 +36,7 @@ const SignUp = () => {
 
     const PostData = async (jsonData) => {
         console.log("Helooo");
-        const res = await fetch("http://localhost:3001/api/organizers/signUp", {
+        const res = await fetch(`${base_url}/signUp`, {
             method: "POST",
             headers: {
                 "Content-type": "application/json",
@@ -53,9 +53,7 @@ const SignUp = () => {
             console.log(data);
             window.alert("Successfully posted data");
             console.log("Successfully posted data");
-            // localStorage.setItem("_id", JSON.stringify(data.userDetails._id));
-            // history.push("/userPage");
-            // Navigate('./login');
+            Navigate('/login');
 
         }
     };
