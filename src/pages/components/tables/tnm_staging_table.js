@@ -67,7 +67,7 @@ const Tnm_staging_table = (props) => {
 
     return (
         <Paper elevation={4} className={styles.table_report} >
-            <TableContainer sx={{ height: '35vh' }}>
+            <TableContainer sx={{ maxHeight:'45vh' }}>
                 <Table className={styles.TableBody}>
                     <TableBody className={styles.TableBody} >
                         <TableRow className={styles.tableRow}>

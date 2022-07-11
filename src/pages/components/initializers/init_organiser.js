@@ -185,8 +185,12 @@ function getAge(dateString) {
   return age;
 }
 
-const base_url = "http://localhost:3001/api/organizers"
+const base_url = "http://localhost:3001/api/organizers";
+// const base_url = "http://192.168.16.133:3001/api/organizers"
+
+
+const base_url2 = "http://localhost:3001/api/organizerMW";
 
 
 export { useSessionStorage, report_types, reports_init, initial_report_entry, initial_staging,
-          tnm_init, tnm_map, tnm_staging_fields_init, patient_info_init, base_url };
+          tnm_init, tnm_map, tnm_staging_fields_init, patient_info_init, base_url, base_url2 };

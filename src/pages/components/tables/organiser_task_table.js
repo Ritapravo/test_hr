@@ -12,7 +12,7 @@ const Organiser_task_table = (props) => {
 
     const handleOrganize = (item) => {
         console.log(item.patientID);
-        sessionStorage.setItem("patient_details_organiser", JSON.stringify({ p_id: item.patientID, phr_id: item.patient_health_record }))
+        sessionStorage.setItem("patient_details_organiser", JSON.stringify({ p_id: item.patientID, phr_id: item.patient_health_record, task_id:item._id }))
         Navigate('/organiser');
     }
 
@@ -35,7 +35,7 @@ const Organiser_task_table = (props) => {
                                 <TableCell className={styles.tableCell} width='15%' ><p>{item.patientID}</p></TableCell>
                                 <TableCell className={styles.tableCellEnd} width='35%' >
                                     <p className={styles.tableCellEnd_p}>{item.status}</p>
-                                    <Button size='small' variant='contained' onClick={() => handleOrganize(item)} ><p>{item.button}</p></Button>
+                                    <Button size='small' variant='contained' onClick={() => handleOrganize(item)} ><p>{'organize'}</p></Button>
                                 </TableCell>
                             </TableRow>))
                         }

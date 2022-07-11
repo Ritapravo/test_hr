@@ -37,8 +37,8 @@ const Organiser_landing_page = () => {
   const fetchTask = async () => {
     try {
       const res = await fetch(
-        //`http://localhost:3001/api/organizers/getTasksList/${organiser_details._id}`,
-        `http://localhost:3001/api/organizers/getTasksList/62a4274c1c54a3fb0973fdbc`,
+        `http://localhost:3001/api/organizers/getTasksList/${organiser_details._id}`,
+        // `http://localhost:3001/api/organizers/getTasksList/62a4274c1c54a3fb0973fdbc`,
         {
           method: "GET",
           headers: {
@@ -56,10 +56,10 @@ const Organiser_landing_page = () => {
     }
   };
 
-  // useEffect(() => {
-  //   if (organiser_details._id)
-  //     fetchTask();
-  // }, [organiser_details]);
+  useEffect(() => {
+    if (organiser_details._id)
+      fetchTask();
+  }, [organiser_details]);
 
 
 

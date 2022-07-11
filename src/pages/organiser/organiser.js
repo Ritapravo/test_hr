@@ -26,7 +26,7 @@ const Organiser = () => {
 
 
   const handleCloseWindow = () => {
-    alert('Progress saved in draft');
+    // alert('Progress saved in draft');
     Navigate('/organiser_landing_page');
   }
 
@@ -37,9 +37,7 @@ const Organiser = () => {
   }
 
 
-  const deleteReport = (item) => {
-    setReports(reports.filter((t) => t !== item));
-  }
+  
 
 
 
@@ -58,7 +56,7 @@ const Organiser = () => {
         Patient Id : {patient_details.p_id}
       </h2>
 
-      <a href={`${base_url}/getAllPatientReports/62caf645de65d0adb085c594`}>
+      <a href={`${base_url}/getAllPatientReports/${patient_details.task_id}`} target="_blank">
       <div className={styles.downloadButton} onClick={()=>setDownloaded(true)}></div>
       </a>
       {downloaded && <div className={styles.downloaded} onClick={()=>setDownloaded(false)}> <p>Download complete!</p></div>}
@@ -74,9 +72,9 @@ const Organiser = () => {
 
       </Grid>
 
-      <Report_upload_modal reports={reports} setReports={setReports} patient_details={patient_details} />
+      <Report_upload_modal reports={reports} setReports={setReports} />
 
-      <Report_table reports={reports} deleteReport={deleteReport} />
+      <Report_table reports={reports} setReports={setReports}/>
 
 
       <Button className={styles.case_summary_button} onClick={() => setOpen_staging(!open_staging)}
