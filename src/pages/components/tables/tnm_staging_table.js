@@ -3,7 +3,7 @@ import { Button,TableContainer, Table, TableBody, TableCell, TableRow } from '@m
 import styles from './table.module.css';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Paper from '@mui/material/Paper';
-import { initial_staging } from '../initializers/init_organiser';
+import { initial_staging, base_url2, useSessionStorage } from '../initializers/init_organiser';
 
 const max =(a, b)=> {return a>b?a:b};
 
@@ -11,10 +11,12 @@ const Tnm_staging_table = (props) => {
 
     var patient_details = props.patient_details;
     const [staging, setStaging] = useState(initial_staging);
+    
+
     const fetchStaging = async () => {
         try {
             const res = await fetch(
-                `http://localhost:3001/api/medical_writers/getStagingData/${patient_details.phr_id}`,
+                `${base_url2}/getStagingData/${patient_details.phr_id}`,
                 {
                     method: "GET",
                     headers: {
@@ -35,7 +37,7 @@ const Tnm_staging_table = (props) => {
     const deleteStagingFromDB = async (item) => {
         try {
             const res = await fetch(
-                `http://localhost:3001/api/medical_writers/removeStaging/${patient_details.phr_id}/${item._id}`,
+                `${base_url2}/removeStaging/${patient_details.phr_id}/${item._id}`,
                 {
                     method: "DELETE",
                     headers: {
@@ -47,6 +49,7 @@ const Tnm_staging_table = (props) => {
 
             const data = await res.json();
             setStaging(staging.filter((t) => t !== item));
+            alert('Staging Entry deleted from Database');
             console.log(data);
         } catch (error) {
             console.log(error);
@@ -55,14 +58,14 @@ const Tnm_staging_table = (props) => {
 
     useEffect(() => {
         if (patient_details) {
-            // fetchStaging();
+            fetchStaging();
             console.log('staging data will be fetched', patient_details);
         }
     }, [patient_details]);
 
     const deleteStaging = (item) => {
-        // deleteStagingFromDB(item)
-        setStaging(staging.filter((t) => t !== item));
+        deleteStagingFromDB(item)
+        // setStaging(staging.filter((t) => t !== item));
     }
 
     return (

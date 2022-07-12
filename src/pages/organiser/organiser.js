@@ -9,7 +9,7 @@ import { useSessionStorage, base_url } from '../components/initializers/init_org
 import Report_upload_modal from '../components/modals/upload_modal';
 import Patient_diagnosis from '../components/diagnosis/diagnosis';
 import Instructions from '../components/instructions/instructions';
-import Report_table from '../components/tables/report_table';
+import {Report_table} from '../components/tables/report_table';
 import Tnm_staging_table from '../components/tables/tnm_staging_table';
 import Container from '../components/layout/container';
 

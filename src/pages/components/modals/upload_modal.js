@@ -1,4 +1,4 @@
-import { React, useState } from 'react';
+import { React, useState, useEffect } from 'react';
 import { Button, MenuItem, Table, TableBody, TableCell, TableRow, TableRowTextField, TextField } from '@mui/material';
 import styles from './upload_modal.module.css';
 import { Link, useNavigate } from "react-router-dom";
@@ -7,8 +7,8 @@ import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import { base_url, useSessionStorage } from '../initializers/init_organiser';
-
-import { report_types, initial_report_entry } from '../initializers/init_organiser';
+import { fetchReports } from '../tables/report_table';
+import { report_types_init, initial_report_entry } from '../initializers/init_organiser';
 
 
 const modal_style = {
@@ -28,9 +28,10 @@ const Report_upload_modal = (props) => {
 
     const Navigate = useNavigate();
 
-    var patient_details, organiser_details;
+    var patient_details, organiser_details, cancerID;
     patient_details = useSessionStorage("patient_details_organiser");
     organiser_details = useSessionStorage("organiser_details");
+    cancerID = useSessionStorage("cancerID");
 
     const { reports, setReports} = props;
 
@@ -40,9 +41,41 @@ const Report_upload_modal = (props) => {
     const [report_file, setReport_file] = useState(null);
     const [report_file_list, setReport_file_list] = useState([]);
 
+    const [report_types, setReport_types] = useState([]);
+
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
+    const fetchCancerInfo = async () => {
+        console.log('entered');
+        try {
+            const res = await fetch(
+                // `${base_url}/getCancerFields/${cancerID}`,
+                `${base_url}/getCancerFields/62caf1b2a8394e529d6a15e8`,
+                {
+                    method: "GET",
+                    headers: {
+                        Accept: "application/json",
+                        "Content-type": "application/json",
+                    },
+                }
+            );
+
+            const data = await res.json();
+            setReport_types(data.data.Investigation.Reports);
+            console.log(data.data.Investigation.Reports);
+        } catch (error) {
+            console.log(error);
+        }
+    
+    }
+
+    useEffect(() => {
+        if (cancerID){
+            console.log('entered ');
+            fetchCancerInfo();
+        }
+    },[cancerID]);
 
     const post_file_data = async (tempRepID) => {
         const jsonData = {
@@ -72,6 +105,8 @@ const Report_upload_modal = (props) => {
             const data = await res.json();
             console.log(data, "inside data success");
             alert(data.message);
+            // window.location.reload(false);
+            fetchReports(patient_details, setReports)
 
         } catch (error) {
             console.log(error, "inside daTa error");
@@ -99,7 +134,7 @@ const Report_upload_modal = (props) => {
             const data = await res.json();
             const tempRepID = await data.tempRepID
             console.log(tempRepID, "inside file success");
-            alert(data.message);
+            // alert(data.message);
             post_file_data(tempRepID);
         } catch (error) {
             console.log(error, "inside file error");
@@ -107,6 +142,8 @@ const Report_upload_modal = (props) => {
         }
     }
     // 62cc5a6a549fb946603c7b79
+
+
 
     const handle_modal_save = (e) => {
         e.preventDefault ();

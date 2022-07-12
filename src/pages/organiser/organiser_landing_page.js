@@ -27,7 +27,7 @@ const Organiser_landing_page = () => {
 
   // console.log(organiser_details);
 
-  const [task_table, setTask_table] = useState(initial_task_table);
+  const [task_table, setTask_table] = useState([]);
 
 
   const handleLogout = () => {

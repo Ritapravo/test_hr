@@ -1,7 +1,6 @@
 import { React, useState, useEffect } from 'react';
 import { Button, MenuItem, Table, TableBody, TableCell, TableRow, TableRowTextField } from '@mui/material';
 import styles from './tnm.module.css';
-
 import styles2 from './../components/tables/table.module.css'
 
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
@@ -10,9 +9,11 @@ import { TextField } from '@mui/material';
 import { FormControl, FormControlLabel, Checkbox as MuiCheckbox } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import { useSessionStorage, reports_init, tnm_init, tnm_map, tnm_staging_fields_init } from './../components/initializers/init_organiser';
+import {  useSessionStorage, reports_init, tnm_init, tnm_map, tnm_staging_fields_init, base_url2 } from './../components/initializers/init_organiser';
 import { FormLabel, RadioGroup as MuiRadioGroup, Radio, FormHelperText } from '@mui/material';
 import Container from '../components/layout/container';
+
+
 
 // import formstyle from './../../styles/EmployeeForm.module.css
 
@@ -20,9 +21,10 @@ const TNM = () => {
 
     const Navigate = useNavigate();
 
-    var patient_details;
+    var patient_details,cancerID;
 
     patient_details = useSessionStorage("patient_details_organiser");
+    cancerID = useSessionStorage('cancerID');
 
     const [tnm_staging_fields, settnm_staging_fields] = useState(tnm_staging_fields_init);
     const [tnm_values, setTnm_values] = useState(tnm_init);
@@ -33,8 +35,8 @@ const TNM = () => {
 
         if ("DX_Site" in fieldValues)
             temp.DX_Site = /[A-Za-z0-9]+/.test(fieldValues.DX_Site) ? '' : 'Required';
-        if ("Stage" in fieldValues)
-            temp.Stage = /[A-Za-z0-9]+/.test(fieldValues.Stage) ? '' : 'Required';
+        // if ("Stage" in fieldValues)
+        //     temp.Stage = /[A-Za-z0-9]+/.test(fieldValues.Stage) ? '' : 'Required';
         if ("Date_staged" in fieldValues)
             temp.Date_staged = /[A-Za-z0-9]+/.test(fieldValues.Date_staged) ? '' : 'Required';
         if ("Basis" in fieldValues)
@@ -88,7 +90,7 @@ const TNM = () => {
         Navigate('/organiser');
     }
     const postStaging = async (jsonData) => {
-        const res = await fetch("http://localhost:3001/api/medical_writers/addStaging", {
+        const res = await fetch(`${base_url2}/addStaging`, {
             method: "POST",
             headers: {
                 "Content-type": "application/json",
@@ -116,6 +118,7 @@ const TNM = () => {
 
         console.log(tnm_staging_fields);
         let val = validate();
+        console.log(val);
         if (val) {
             postStaging(tnm_staging_fields);
         }
@@ -124,9 +127,11 @@ const TNM = () => {
     useEffect(() => {
         settnm_staging_fields({
             ...tnm_staging_fields,
-            ['phrID']: patient_details.phr_id
+            ['phrID']: patient_details.phr_id,
+            // ['cancerID']: cancerID
+            ['cancerID']: '62caf01be0af4611cd0f31c9'
         })
-    }, [patient_details]);
+    }, [patient_details,cancerID]);
 
 
     return (
@@ -153,10 +158,11 @@ const TNM = () => {
             <div className={styles.inputs}>
                 <p className={styles.inputs_p}>Stage</p>
                 <TextField
+                    disabled={true}
                     name={'Stage'}
                     value={tnm_staging_fields.Stage}
                     onChange={handle_change}
-                    {...(errors.Stage && { error: true, helperText: errors.Stage })}
+                    // {...(errors.Stage && { error: true, helperText: errors.Stage })}
                     variant="standard" className={styles.text_field} InputProps={{ disableUnderline: true }} size='small' />
             </div>
 
@@ -181,7 +187,7 @@ const TNM = () => {
                     {...(errors.Basis && { error: true, helperText: errors.Basis })}
                     variant="standard" className={styles.text_field} InputProps={{ disableUnderline: true }} size='small'
                 >
-                    {['Pathologic', 'Clinical'].map((option) => (
+                    {['Pathological', 'Clinical'].map((option) => (
                         <MenuItem key={option} value={option}>
                             {option}
                         </MenuItem>

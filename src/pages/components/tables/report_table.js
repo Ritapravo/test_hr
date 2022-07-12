@@ -8,6 +8,27 @@ import DeleteIcon from '@mui/icons-material/Delete';
 const max = (a, b) => { return a > b ? a : b };
 
 
+const fetchReports = async (patient_details, setReports) => {
+    try {
+        const res = await fetch(
+            `${base_url}/getCuratedReports/${patient_details.phr_id}`,
+            {
+                method: "GET",
+                headers: {
+                    Accept: "application/json",
+                    "Content-type": "application/json",
+                },
+            }
+        );
+
+        const data = await res.json();
+        setReports(data.data)
+        console.log(data);
+    } catch (error) {
+        console.log(error);
+    }
+};
+
 const Report_table = (props) => {
 
     var patient_details;
@@ -44,30 +65,11 @@ const Report_table = (props) => {
 
     
 
-    const fetchReports = async () => {
-        try {
-            const res = await fetch(
-                `${base_url}/getCuratedReports/${patient_details.phr_id}`,
-                {
-                    method: "GET",
-                    headers: {
-                        Accept: "application/json",
-                        "Content-type": "application/json",
-                    },
-                }
-            );
-
-            const data = await res.json();
-            setReports(data.data)
-            console.log(data);
-        } catch (error) {
-            console.log(error);
-        }
-    };
+    
 
     useEffect(() => {
         if (patient_details) {
-            fetchReports();
+            fetchReports(patient_details, setReports);
         }
     }, [patient_details]);
     return (
@@ -119,4 +121,4 @@ const Report_table = (props) => {
     )
 }
 
-export default Report_table;
+export  {Report_table, fetchReports};
