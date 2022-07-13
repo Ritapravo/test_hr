@@ -387,4 +387,4 @@ const tnm_criteria_init = [
 
 
 export { useSessionStorage, report_types_init, reports_init, initial_report_entry, initial_staging,
-          tnm_init, tnm_map, tnm_staging_fields_init, patient_info_init, base_url, base_url2, getAge };
+          tnm_init, tnm_map, tnm_staging_fields_init, patient_info_init, base_url, base_url2, getAge, tnm_criteria_init };

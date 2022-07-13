@@ -9,13 +9,20 @@ import { TextField } from '@mui/material';
 import { FormControl, FormControlLabel, Checkbox as MuiCheckbox } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import {  useSessionStorage, reports_init, tnm_init, tnm_map, tnm_staging_fields_init, base_url2 } from './../components/initializers/init_organiser';
+import {  useSessionStorage, reports_init, tnm_init, tnm_map, 
+    tnm_staging_fields_init, base_url2, tnm_criteria_init } from './../components/initializers/init_organiser';
 import { FormLabel, RadioGroup as MuiRadioGroup, Radio, FormHelperText } from '@mui/material';
 import Container from '../components/layout/container';
 
 
 
 // import formstyle from './../../styles/EmployeeForm.module.css
+
+const getIndex = (value) => {
+    if(value==='T') return 0;
+    else if(value==='N') return 1;
+    else return 2;
+}
 
 const TNM = () => {
 
@@ -26,9 +33,41 @@ const TNM = () => {
     patient_details = useSessionStorage("patient_details_organiser");
     cancerID = useSessionStorage('cancerID');
 
+
+
+    const fetchCriteria = async () => {
+        try {
+            const res = await fetch(
+                `http://localhost:3001/api/cancer_records/getTNMStaging/62caf01be0af4611cd0f31c9`,
+                {
+                    method: "GET",
+                    headers: {
+                        Accept: "application/json",
+                        "Content-type": "application/json",
+                    },
+                }
+            );
+
+            const data = await res.json();
+            setTnm_criteria_list(data.data[0].Criteria);
+            console.log(data.data[0].Criteria);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    useEffect(() => {
+            fetchCriteria();
+            console.log('criteria data will be fetched');
+        
+    }, []);
+
+
     const [tnm_staging_fields, settnm_staging_fields] = useState(tnm_staging_fields_init);
     const [tnm_values, setTnm_values] = useState(tnm_init);
     const [errors, setErrors] = useState({});
+
+    const [tnm_criteria_list, setTnm_criteria_list] = useState([{criteria_code:[{"name": "0","description": "Loading"}]}]);
 
     const validate = (fieldValues = tnm_staging_fields) => {
         let temp = { ...errors };
@@ -269,17 +308,17 @@ const TNM = () => {
                                         </TableRow>
 
                                         {
-                                            tnm_map.get(TNM_option).map(item =>
-                                            (<TableRow className={styles2.tableRow2} key={item.code}>
+                                            tnm_criteria_list[getIndex(TNM_option)].criteria_code.map(item =>
+                                            (<TableRow className={styles2.tableRow2} key={item.name}>
 
                                                 <TableCell className={styles2.tableCell_tnm_radio} width='10%' style={{ textAlign: 'left', paddingLeft: '5%' }} >
                                                     <FormControlLabel
-                                                        key={item.code} value={item.code} control={<Radio />} label={<p>{item.code}</p>}
+                                                        key={item.code} value={item.name} control={<Radio />} label={<p>{item.name}</p>}
                                                     />
 
                                                 </TableCell>
                                                 <TableCell style={{ textAlign: 'left', padding: '0 0 0 10px' }} width='40%' >
-                                                    <p style={{ display: 'inline-block' }}>{item.definition}</p>
+                                                    <p style={{ display: 'inline-block' }}>{item.description}</p>
 
                                                 </TableCell>
                                             </TableRow>))
