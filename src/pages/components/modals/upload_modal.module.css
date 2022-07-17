@@ -170,4 +170,15 @@
         width: 3vw;
         height: 3vw;
     }
+    .inputs{
+        width: 100%;
+    }
+    .text_field{
+        height: 4.5vh;
+        width: 70%;
+    }
+    .text_field_multiline {
+        width: 100%;
+        transform: translate(0%, -10%);
+    }
 }

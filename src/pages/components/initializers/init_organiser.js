@@ -13,6 +13,24 @@ const useSessionStorage = (name) => {
   return value
 }
 
+const setSessionStorage=(name, value) => {
+  sessionStorage.setItem(name, JSON.stringify(value));
+}
+
+const delSessionStorage=(name) => {
+  sessionStorage.removeItem(name);
+}
+
+// const useLocalStorage = (name) => {
+//     const [value, setValue] = useState('')
+  
+//     useEffect(() => {
+//       setValue(JSON.parse(localStorage.getItem(name)));
+//     }, [])
+  
+//     return value
+//   }
+
 const report_types_init = ['Histopathology', 'Neuropathology', 'Radiology', 'cytopathology'];
 
 const reports_init = [
@@ -101,7 +119,7 @@ const initial_staging = [
 
 const tnm_staging_fields_init = {
   "staging_type": "TNM",
-  "Date_staged": "",
+//   "Date_staged": "",
   // "Stage": "",
   "Criteria": ['','',''],
   "Basis": "",
@@ -386,5 +404,5 @@ const tnm_criteria_init = [
 ]
 
 
-export { useSessionStorage, report_types_init, reports_init, initial_report_entry, initial_staging,
+export { useSessionStorage, delSessionStorage, setSessionStorage, report_types_init, reports_init, initial_report_entry, initial_staging,
           tnm_init, tnm_map, tnm_staging_fields_init, patient_info_init, base_url, base_url2, getAge, tnm_criteria_init };

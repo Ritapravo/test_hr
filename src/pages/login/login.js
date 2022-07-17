@@ -3,6 +3,7 @@ import { React, useState } from 'react';
 import styles from './../css/login.module.css'
 import {Link, useNavigate } from "react-router-dom";
 import { base_url } from '../components/initializers/init_organiser';
+import { setSessionStorage } from '../components/initializers/init_organiser';
 
 const initial_values1 = {
     "email": '',
@@ -44,7 +45,7 @@ const Login = () => {
             // console.log(data);
             window.alert("Logged in successfully");
             console.log("Successfully posted data");
-            sessionStorage.setItem("organiser_details", JSON.stringify(data.userDetails));
+            setSessionStorage('organiser_details',data.userDetails);
             Navigate('/organiser_landing_page');
         }
     };

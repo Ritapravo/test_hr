@@ -3,6 +3,7 @@ import { Button, Table, TableBody, TableCell, TableRow, TableContainer, TableRow
 import styles from './table.module.css';
 import Paper from '@mui/material/Paper';
 import { Link, useNavigate } from "react-router-dom";
+import { setSessionStorage } from '../initializers/init_organiser';
 
 const Organiser_task_table = (props) => {
 
@@ -12,7 +13,7 @@ const Organiser_task_table = (props) => {
 
     const handleOrganize = (item) => {
         console.log(item.patientID);
-        sessionStorage.setItem("patient_details_organiser", JSON.stringify({ p_id: item.patientID, phr_id: item.patient_health_record, task_id:item._id }))
+        setSessionStorage("patient_details_organiser", { p_id: item.patientID, phr_id: item.patient_health_record, task_id:item._id });
         Navigate('/organiser');
     }
 

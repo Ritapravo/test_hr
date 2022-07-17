@@ -16,7 +16,8 @@ const modal_style = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: '70%',
+    width: `${window.screen.width>850?'60%':'98vw'}`,
+    // width:'70%',
     // height:'60%',
     bgcolor: 'background.paper',
     border: '2px solid #000',
@@ -26,6 +27,7 @@ const modal_style = {
 
 const Report_upload_modal = (props) => {
 
+    // console.log(window.screen.width);
     const Navigate = useNavigate();
 
     var patient_details, organiser_details, cancerID;
@@ -106,7 +108,8 @@ const Report_upload_modal = (props) => {
             console.log(data, "inside data success");
             alert(data.message);
             // window.location.reload(false);
-            fetchReports(patient_details, setReports)
+            handleClose();
+            fetchReports(patient_details, setReports);
 
         } catch (error) {
             console.log(error, "inside daTa error");
@@ -158,7 +161,7 @@ const Report_upload_modal = (props) => {
         let temp2 = [...reports, temp0];
         console.log(temp2);
         // setReports(temp2);
-        handleClose();
+        // handleClose();
         console.log(report_file);
         upload_file(report_file);
         setReport_entry(initial_report_entry);

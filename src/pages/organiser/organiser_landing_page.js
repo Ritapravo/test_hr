@@ -4,7 +4,7 @@ import styles from './../css/organiser.module.css';
 import { Link, useNavigate } from "react-router-dom";
 import Organiser_task_table from '../components/tables/organiser_task_table';
 import Container from '../components/layout/container';
-import { useSessionStorage } from '../components/initializers/init_organiser';
+import { useSessionStorage, delSessionStorage } from '../components/initializers/init_organiser';
 
 
 const initial_task_table = [
@@ -31,6 +31,8 @@ const Organiser_landing_page = () => {
 
 
   const handleLogout = () => {
+    // sessionStorage.removeItem("organiser_details");
+    delSessionStorage("organiser_details");
     Navigate('/login');
   }
 

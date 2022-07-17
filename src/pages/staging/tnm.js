@@ -9,8 +9,10 @@ import { TextField } from '@mui/material';
 import { FormControl, FormControlLabel, Checkbox as MuiCheckbox } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import {  useSessionStorage, reports_init, tnm_init, tnm_map, 
-    tnm_staging_fields_init, base_url2, tnm_criteria_init } from './../components/initializers/init_organiser';
+import {
+    useSessionStorage, reports_init, tnm_init, tnm_map,
+    tnm_staging_fields_init, base_url2, tnm_criteria_init
+} from './../components/initializers/init_organiser';
 import { FormLabel, RadioGroup as MuiRadioGroup, Radio, FormHelperText } from '@mui/material';
 import Container from '../components/layout/container';
 
@@ -19,8 +21,8 @@ import Container from '../components/layout/container';
 // import formstyle from './../../styles/EmployeeForm.module.css
 
 const getIndex = (value) => {
-    if(value==='T') return 0;
-    else if(value==='N') return 1;
+    if (value === 'T') return 0;
+    else if (value === 'N') return 1;
     else return 2;
 }
 
@@ -28,12 +30,12 @@ const TNM = () => {
 
     const Navigate = useNavigate();
 
-    var patient_details,cancerID;
+    var patient_details, cancerID;
 
     patient_details = useSessionStorage("patient_details_organiser");
     cancerID = useSessionStorage('cancerID');
 
-
+    const today = new Date();
 
     const fetchCriteria = async () => {
         try {
@@ -57,9 +59,9 @@ const TNM = () => {
     };
 
     useEffect(() => {
-            fetchCriteria();
-            console.log('criteria data will be fetched');
-        
+        fetchCriteria();
+        console.log('criteria data will be fetched');
+
     }, []);
 
 
@@ -67,7 +69,7 @@ const TNM = () => {
     const [tnm_values, setTnm_values] = useState(tnm_init);
     const [errors, setErrors] = useState({});
 
-    const [tnm_criteria_list, setTnm_criteria_list] = useState([{criteria_code:[{"name": "0","description": "Loading"}]}]);
+    const [tnm_criteria_list, setTnm_criteria_list] = useState([{ criteria_code: [{ "name": "0", "description": "Loading" }] }]);
 
     const validate = (fieldValues = tnm_staging_fields) => {
         let temp = { ...errors };
@@ -170,7 +172,7 @@ const TNM = () => {
             // ['cancerID']: cancerID
             ['cancerID']: '62caf01be0af4611cd0f31c9'
         })
-    }, [patient_details,cancerID]);
+    }, [patient_details, cancerID]);
 
 
     return (
@@ -184,7 +186,7 @@ const TNM = () => {
 
 
             <div className={styles.inputs}>
-                <p className={styles.inputs_p}>DX site</p>
+                <h3 className={styles.inputs_p}>DX site</h3>
                 <TextField
                     name={'DX_Site'}
                     value={tnm_staging_fields.DX_Site}
@@ -194,7 +196,7 @@ const TNM = () => {
                 />
             </div>
 
-            <div className={styles.inputs}>
+            {/* <div className={styles.inputs}>
                 <p className={styles.inputs_p}>Stage</p>
                 <TextField
                     disabled={true}
@@ -203,22 +205,10 @@ const TNM = () => {
                     onChange={handle_change}
                     // {...(errors.Stage && { error: true, helperText: errors.Stage })}
                     variant="standard" className={styles.text_field} InputProps={{ disableUnderline: true }} size='small' />
-            </div>
-
-            <div className={styles.double_input} >
-                <p className={styles.inputs_p}>Date Staged</p>
-                <TextField
-                    name={'Date_staged'}
-                    type='date'
-                    value={tnm_staging_fields.Date_staged}
-                    onChange={handle_change}
-                    {...(errors.Date_staged && { error: true, helperText: errors.Date_staged })}
-                    variant="standard" className={styles.text_field} InputProps={{ disableUnderline: true }} size='small'
-                />
-            </div>
+            </div> */}
 
             <div className={styles.inputs}>
-                <p className={styles.inputs_p}>Basis</p>
+                <h3 className={styles.inputs_p}>Basis</h3>
                 <TextField select
                     name={'Basis'}
                     value={tnm_staging_fields.Basis}
@@ -234,7 +224,19 @@ const TNM = () => {
                 </TextField>
             </div>
 
-            <div className={styles.inputs_checkbox} >
+            <div className={styles.inputs} >
+                <h3 className={styles.inputs_p}>Date Staged</h3>
+                <TextField
+                    name={'Date_staged'}
+                    disabled={true}
+                    // type='date'
+                    value={today.toISOString().slice(0, 10)}
+                    onChange={() => { }}
+                    {...(errors.Date_staged && { error: true, helperText: errors.Date_staged })}
+                    variant="standard" className={styles.text_field} InputProps={{ disableUnderline: true }} size='small'
+                />
+            </div>
+            {/* <div className={styles.inputs_checkbox} >
                 <p className={styles.inputs_p}>Working Stage</p>
                 <FormControl style={{ transform: 'translate(5%, -17%)' }}>
                     <FormControlLabel
@@ -242,11 +244,10 @@ const TNM = () => {
                             // style={{font: 'normal normal normal 40px/49px Calibri'}}
                             color='primary'
                         />}
-                    // label={'working stage'}
                     >
                     </FormControlLabel>
                 </FormControl>
-            </div>
+            </div> */}
 
             <div style={{ height: '5vh' }}></div>
 
@@ -257,8 +258,6 @@ const TNM = () => {
                             <TableBody className={styles2.TableBody} >
                                 <TableRow style={{ borderBottom: '1.5px solid rgb(147, 134, 134)' }} >
                                     <TableCell width='100%' style={{ textAlign: 'center' }} ><h3>Criteria</h3></TableCell>
-
-
                                 </TableRow>
 
 
@@ -301,8 +300,8 @@ const TNM = () => {
                                 <Table className={styles2.TableBody}>
                                     <TableBody className={styles2.TableBody} >
                                         <TableRow className={styles2.tableRow}>
-                                            <TableCell className={styles2.tableCell} width='10%' ><h3>Criteria code</h3></TableCell>
-                                            <TableCell width='40%' style={{ textAlign: 'center' }} ><h3>Classification definition</h3></TableCell>
+                                            <TableCell className={styles2.tableCell} width='6%' ><h3>Criteria code</h3></TableCell>
+                                            <TableCell width='44%' style={{ textAlign: 'center' }} ><h3>Classification definition</h3></TableCell>
 
 
                                         </TableRow>
@@ -311,13 +310,13 @@ const TNM = () => {
                                             tnm_criteria_list[getIndex(TNM_option)].criteria_code.map(item =>
                                             (<TableRow className={styles2.tableRow2} key={item.name}>
 
-                                                <TableCell className={styles2.tableCell_tnm_radio} width='10%' style={{ textAlign: 'left', paddingLeft: '5%' }} >
+                                                <TableCell className={styles2.tableCell_tnm_radio} width='6%' style={{ textAlign: 'left', paddingLeft: '5%' }} >
                                                     <FormControlLabel
                                                         key={item.code} value={item.name} control={<Radio />} label={<p>{item.name}</p>}
                                                     />
 
                                                 </TableCell>
-                                                <TableCell style={{ textAlign: 'left', padding: '0 0 0 10px' }} width='40%' >
+                                                <TableCell style={{ textAlign: 'left', padding: '0 0 0 10px' }} width='44%' >
                                                     <p style={{ display: 'inline-block' }}>{item.description}</p>
 
                                                 </TableCell>

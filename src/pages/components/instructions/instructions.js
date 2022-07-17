@@ -1,5 +1,5 @@
 import {React, useState, useEffect} from 'react';
-import { patient_info_init, base_url2, useSessionStorage, getAge } from '../initializers/init_organiser';
+import { patient_info_init, base_url2, useSessionStorage, setSessionStorage, getAge } from '../initializers/init_organiser';
 
 const inlineBlock = {
     display: 'inline-block'
@@ -28,7 +28,7 @@ const Instructions = () => {
             const data = await res.json();
             setPatient_info(data.data);
             console.log(data.data);
-            sessionStorage.setItem("cancerID", JSON.stringify(data.data.cancer_type))
+           setSessionStorage("cancerID", data.data.cancer_type);
         } catch (error) {
             console.log(error);
         }
