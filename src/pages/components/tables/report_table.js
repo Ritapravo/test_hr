@@ -22,6 +22,8 @@ const fetchReports = async (patient_details, setReports) => {
         );
 
         const data = await res.json();
+        if(data.status===500)
+            throw(data.messgae)
         setReports(data.data)
         console.log(data);
     } catch (error) {

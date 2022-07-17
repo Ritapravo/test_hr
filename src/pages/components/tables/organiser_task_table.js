@@ -5,6 +5,8 @@ import Paper from '@mui/material/Paper';
 import { Link, useNavigate } from "react-router-dom";
 import { setSessionStorage } from '../initializers/init_organiser';
 
+const max = (a, b) => { return a > b ? a : b };
+
 const Organiser_task_table = (props) => {
 
     const Navigate = useNavigate();
@@ -38,6 +40,15 @@ const Organiser_task_table = (props) => {
                                     <p className={styles.tableCellEnd_p}>{item.status}</p>
                                     <Button size='small' variant='contained' onClick={() => handleOrganize(item)} ><p>{'organize'}</p></Button>
                                 </TableCell>
+                            </TableRow>))
+                        }
+                        {task_table.length===0 &&
+                        [...Array(max(6 - task_table.length, 0))].map((e, i) => (
+                            <TableRow className={styles.tableRow2} key={i}>
+                                <TableCell className={styles.tableCell} width='10%' ><h3></h3></TableCell>
+                                <TableCell className={styles.tableCell} width='20%' ><h3></h3></TableCell>
+                                <TableCell className={styles.tableCell} width='15%' ><h3></h3></TableCell>
+                                <TableCell width='35%' style={{ textAlign: 'center' }} ><h3 style={{ margin: '0' }}></h3></TableCell>
                             </TableRow>))
                         }
                     </TableBody>

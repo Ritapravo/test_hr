@@ -12,6 +12,7 @@ import Instructions from '../components/instructions/instructions';
 import {Report_table} from '../components/tables/report_table';
 import Tnm_staging_table from '../components/tables/tnm_staging_table';
 import Container from '../components/layout/container';
+import Staging_button from '../components/buttons/staging_button';
 
 
 
@@ -26,25 +27,8 @@ const Organiser = () => {
 
 
   const handleCloseWindow = () => {
-    // alert('Progress saved in draft');
     Navigate('/organiser_landing_page');
   }
-
-  const handleDownload = () => {
-    console.log("download button clicked");
-    let temp = !downloaded;
-    setDownloaded(temp);
-  }
-
-
-  
-
-
-
-
-  const [open_staging, setOpen_staging] = useState(false);
-
-
 
 
   return (
@@ -77,18 +61,7 @@ const Organiser = () => {
       <Report_table reports={reports} setReports={setReports}/>
 
 
-      <Button className={styles.case_summary_button} onClick={() => setOpen_staging(!open_staging)}
-        variant="contained" startIcon={<AddCircleOutlineOutlinedIcon />} >
-        <p>Add Staging</p>
-      </Button>
-
-      {
-        open_staging &&
-        <>
-          <Button variant='outlined' className={styles.staging_options} onClick={() => { Navigate('/staging/tnm') }}><p>TNM</p></Button>
-          <Button variant='outlined' className={styles.staging_options}><p>FIGO</p></Button>
-        </>
-      }
+      <Staging_button/>
 
       <Tnm_staging_table patient_details={patient_details} edit_enabled={true} />
 

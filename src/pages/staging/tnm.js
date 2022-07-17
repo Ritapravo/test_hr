@@ -11,7 +11,7 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import {
     useSessionStorage, reports_init, tnm_init, tnm_map,
-    tnm_staging_fields_init, base_url2, tnm_criteria_init
+    tnm_staging_fields_init, base_url2, tnm_criteria_init, base_url3
 } from './../components/initializers/init_organiser';
 import { FormLabel, RadioGroup as MuiRadioGroup, Radio, FormHelperText } from '@mui/material';
 import Container from '../components/layout/container';
@@ -40,7 +40,7 @@ const TNM = () => {
     const fetchCriteria = async () => {
         try {
             const res = await fetch(
-                `http://localhost:3001/api/cancer_records/getTNMStaging/62caf01be0af4611cd0f31c9`,
+                `${base_url3}/getTNMStaging/${cancerID}`,
                 {
                     method: "GET",
                     headers: {
@@ -59,10 +59,11 @@ const TNM = () => {
     };
 
     useEffect(() => {
-        fetchCriteria();
-        console.log('criteria data will be fetched');
-
-    }, []);
+        if(cancerID){
+            fetchCriteria();
+            console.log('criteria data will be fetched');
+        }
+    }, [cancerID]);
 
 
     const [tnm_staging_fields, settnm_staging_fields] = useState(tnm_staging_fields_init);
