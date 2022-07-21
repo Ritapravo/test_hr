@@ -30,17 +30,18 @@ const TNM = () => {
 
     const Navigate = useNavigate();
 
-    var patient_details, cancerID;
+    var patient_details, cancerDetails;
 
     patient_details = useSessionStorage("patient_details_organiser");
-    cancerID = useSessionStorage('cancerID');
+    cancerDetails = useSessionStorage('cancerDetails');
 
     const today = new Date();
+    var cancerName = "";
 
     const fetchCriteria = async () => {
         try {
             const res = await fetch(
-                `${base_url3}/getTNMStaging/${cancerID}`,
+                `${base_url3}/getTNMStaging/${cancerDetails.cancerId}`,
                 {
                     method: "GET",
                     headers: {
@@ -59,11 +60,11 @@ const TNM = () => {
     };
 
     useEffect(() => {
-        if(cancerID){
+        if (cancerDetails) {
             fetchCriteria();
             console.log('criteria data will be fetched');
         }
-    }, [cancerID]);
+    }, [cancerDetails]);
 
 
     const [tnm_staging_fields, settnm_staging_fields] = useState(tnm_staging_fields_init);
@@ -75,8 +76,8 @@ const TNM = () => {
     const validate = (fieldValues = tnm_staging_fields) => {
         let temp = { ...errors };
 
-        if ("DX_Site" in fieldValues)
-            temp.DX_Site = /[A-Za-z0-9]+/.test(fieldValues.DX_Site) ? '' : 'Required';
+        // if ("DX_Site" in fieldValues)
+        //     temp.DX_Site = /[A-Za-z0-9]+/.test(fieldValues.DX_Site) ? '' : 'Required';
         // if ("Stage" in fieldValues)
         //     temp.Stage = /[A-Za-z0-9]+/.test(fieldValues.Stage) ? '' : 'Required';
         if ("Date_staged" in fieldValues)
@@ -167,13 +168,17 @@ const TNM = () => {
     }
 
     useEffect(() => {
-        settnm_staging_fields({
-            ...tnm_staging_fields,
-            ['phrID']: patient_details.phr_id,
-            // ['cancerID']: cancerID
-            ['cancerID']: '62caf01be0af4611cd0f31c9'
-        })
-    }, [patient_details, cancerID]);
+        if (patient_details && cancerDetails) {
+            cancerName = cancerDetails.cancerName;
+            settnm_staging_fields({
+                ...tnm_staging_fields,
+                ['phrID']: patient_details.phr_id,
+                // ['cancerDetails']: cancerDetails
+                ['cancerID']: cancerDetails.cancerId,
+                ['DX_Site']: cancerDetails.cancerName
+            })
+        }
+    }, [patient_details, cancerDetails]);
 
 
     return (
@@ -190,8 +195,9 @@ const TNM = () => {
                 <h3 className={styles.inputs_p}>DX site</h3>
                 <TextField
                     name={'DX_Site'}
+                    disabled={true}
                     value={tnm_staging_fields.DX_Site}
-                    onChange={handle_change}
+                    onChange={() => { }}
                     {...(errors.DX_Site && { error: true, helperText: errors.DX_Site })}
                     variant="standard" className={styles.text_field} InputProps={{ disableUnderline: true }} size='small'
                 />

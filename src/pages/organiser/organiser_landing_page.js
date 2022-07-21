@@ -4,7 +4,7 @@ import styles from './../css/organiser.module.css';
 import { Link, useNavigate } from "react-router-dom";
 import Organiser_task_table from '../components/tables/organiser_task_table';
 import Container from '../components/layout/container';
-import { useSessionStorage, delSessionStorage } from '../components/initializers/init_organiser';
+import { useSessionStorage, delSessionStorage, base_url } from '../components/initializers/init_organiser';
 
 
 const initial_task_table = [
@@ -28,7 +28,7 @@ const Organiser_landing_page = () => {
   // console.log(organiser_details);
 
   const [task_table, setTask_table] = useState([]);
-
+  const [loading, setLoading] = useState(false);
 
   const handleLogout = () => {
     // sessionStorage.removeItem("organiser_details");
@@ -37,9 +37,10 @@ const Organiser_landing_page = () => {
   }
 
   const fetchTask = async () => {
+    setLoading(true);
     try {
       const res = await fetch(
-        `http://localhost:3001/api/organizers/getTasksList/${organiser_details._id}`,
+        `${base_url}/getTasksList/${organiser_details._id}`,
         // `http://localhost:3001/api/organizers/getTasksList/62a4274c1c54a3fb0973fdbc`,
         {
           method: "GET",
@@ -51,10 +52,12 @@ const Organiser_landing_page = () => {
       );
 
       const data = await res.json();
-      setTask_table(data.data)
+      setTask_table(data.data);
+      setLoading(false);
       console.log(data);
     } catch (error) {
       console.log(error);
+      setLoading(false);
     }
   };
 
@@ -85,7 +88,7 @@ const Organiser_landing_page = () => {
 
 
       
-        <Organiser_task_table task_table={task_table}/>
+        <Organiser_task_table task_table={task_table} loading={loading}/>
       
     </Container>
 

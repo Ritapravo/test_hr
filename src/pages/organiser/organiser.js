@@ -1,11 +1,10 @@
 import { React, useState } from 'react';
-import { Button } from '@mui/material';
 import styles from './../css/organiser.module.css';
 import { Link, useNavigate } from "react-router-dom";
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import Grid from '@mui/material/Grid';
-import { useSessionStorage, base_url } from '../components/initializers/init_organiser';
+import { useSessionStorage, base_url, delSessionStorage } from '../components/initializers/init_organiser';
 import Report_upload_modal from '../components/modals/upload_modal';
 import Patient_diagnosis from '../components/diagnosis/diagnosis';
 import Instructions from '../components/instructions/instructions';
@@ -13,7 +12,7 @@ import {Report_table} from '../components/tables/report_table';
 import Tnm_staging_table from '../components/tables/tnm_staging_table';
 import Container from '../components/layout/container';
 import Staging_button from '../components/buttons/staging_button';
-
+import Final_submit_button from '../components/buttons/final_submit_button';
 
 
 const Organiser = () => {
@@ -27,8 +26,12 @@ const Organiser = () => {
 
 
   const handleCloseWindow = () => {
+    delSessionStorage("cancerDetails");
+    delSessionStorage("patient_details_organiser");
     Navigate('/organiser_landing_page');
   }
+
+  
 
 
   return (
@@ -65,9 +68,7 @@ const Organiser = () => {
 
       <Tnm_staging_table patient_details={patient_details} edit_enabled={true} />
 
-      <div style={{ textAlign: 'center', marginTop: '100px' }}>
-        <Button className={styles.final_submit_button} onClick={() => { alert('Submitted'); Navigate('/organiser_landing_page') }} variant="contained" color='success'> Submit </Button>
-      </div>
+      <Final_submit_button reports = {reports}/>      
 
     </Container>
 

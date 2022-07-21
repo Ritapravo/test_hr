@@ -13,6 +13,10 @@ const useSessionStorage = (name) => {
   return value
 }
 
+const getSessionStorage = (name) => {
+  return JSON.parse(sessionStorage.getItem(name));
+}
+
 const setSessionStorage=(name, value) => {
   sessionStorage.setItem(name, JSON.stringify(value));
 }
@@ -122,7 +126,7 @@ const tnm_staging_fields_init = {
 //   "Date_staged": "",
   // "Stage": "",
   "Criteria": ['','',''],
-  "Basis": "",
+  "Basis": "Clinical",
   "DX_Site": "",
 }
 
@@ -203,16 +207,16 @@ function getAge(dateString) {
   return age;
 }
 
+const base = "http://localhost:3001";
 
-
-const base_url = "http://localhost:3001/api/organizers";
+const base_url = base + "/api/organizers";
 // const base_url = "http://192.168.16.133:3001/api/organizers"
 
 
-const base_url2 = "http://localhost:3001/api/organizerMW";
+const base_url2 = base + "/api/organizerMW";
 
 
-const base_url3 = "http://localhost:3001/api/cancer_records";
+const base_url3 = base + "/api/cancer_records";
 
 
 const tnm_criteria_init = [
@@ -407,5 +411,5 @@ const tnm_criteria_init = [
 ]
 
 
-export { useSessionStorage, delSessionStorage, setSessionStorage, report_types_init, reports_init, initial_report_entry, initial_staging,
+export { useSessionStorage,getSessionStorage, delSessionStorage, setSessionStorage, report_types_init, reports_init, initial_report_entry, initial_staging,
           tnm_init, tnm_map, tnm_staging_fields_init, patient_info_init, base_url, base_url2, base_url3, getAge, tnm_criteria_init };

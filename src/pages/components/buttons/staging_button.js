@@ -3,20 +3,22 @@ import { Button } from '@mui/material';
 import styles from './../../css/organiser.module.css';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import { Link, useNavigate } from "react-router-dom";
-import { useSessionStorage, base_url3 } from '../initializers/init_organiser';
+import { useSessionStorage, base_url3, getSessionStorage } from '../initializers/init_organiser';
 
 const Staging_button = () => {
     const Navigate = useNavigate();
 
-    var cancerID;
-    cancerID = useSessionStorage('cancerID');
+    var cancerDetails;
+    cancerDetails = useSessionStorage('cancerDetails');
 
     const [staging_types, setStaging_types] = useState([]);
 
     const fetchStagingTypes = async () => {
+        cancerDetails = getSessionStorage('cancerDetails');
+        console.log(cancerDetails.cancerId);
         try {
             const res = await fetch(
-                `${base_url3}/getStagingTypes/${cancerID}`,
+                `${base_url3}/getStagingTypes/${cancerDetails.cancerId}`,
                 {
                     method: "GET",
                     headers: {
@@ -35,15 +37,22 @@ const Staging_button = () => {
     };
 
     useEffect(() => {
-        if(cancerID){
+        if(cancerDetails){
             fetchStagingTypes();
+            // console.log("error");
         }
-    }, [cancerID]);
+    }, [cancerDetails]);
+
+    const handleAddStaging = () => {
+        setOpen_staging(!open_staging);
+        if(staging_types.length===0)
+            fetchStagingTypes();
+    }
 
     const [open_staging, setOpen_staging] = useState(false);
     return (
         <div>
-            <Button className={styles.case_summary_button} onClick={() => setOpen_staging(!open_staging)}
+            <Button className={styles.case_summary_button} onClick={handleAddStaging}
                 variant="contained" startIcon={<AddCircleOutlineOutlinedIcon />} >
                 <p>Add Staging</p>
             </Button>

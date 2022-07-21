@@ -4,6 +4,8 @@ import styles from './../css/login.module.css'
 import { Link, useNavigate } from "react-router-dom";
 import { base_url } from '../components/initializers/init_organiser';
 import { setSessionStorage } from '../components/initializers/init_organiser';
+import LinearProgress from '@mui/material/LinearProgress';
+import swal from 'sweetalert';
 
 const initial_values1 = {
     "email": '',
@@ -22,7 +24,10 @@ const Login = () => {
     const handleSubmit = () => {
         let temp_val = validate();
         // console.log(values);
+
         if (temp_val) {
+            
+            setLoading1(true);
             if (option1)
                 PostData(values)
             else {
@@ -31,7 +36,11 @@ const Login = () => {
             // Navigate('/organiser_landing_page');
         }
         else
-            alert("Check for incorrect fields");
+            swal({
+                // title: "Congratulations!",
+                text: "Check for fields marked in Red!",
+                icon: "warning",
+            });
     }
 
     const PostData = async (jsonData) => {
@@ -47,11 +56,30 @@ const Login = () => {
         console.log(data);
         if (data.status === 400 || data.status === 500 || !data) {
             console.log(data.message);
-            window.alert(`Could  not Login\nError ${data.message}`);
+            // window.alert(`Could  not Login\nError ${data.message}`);
+            if(data.status===400)
+                swal({
+                    // title: "Congratulations!",
+                    text: "Could not login. Check login credentials",
+                    icon: "error",
+                });
+            else
+                swal({
+                    // title: "Congratulations!",
+                    text: "Could not connect to server",
+                    icon: "error",
+                });
             console.log(`Could  not Login\nError ${data.message}`);
+            setLoading1(false);
         } else {
             // console.log(data);
-            window.alert("Logged in successfully");
+            // window.alert("Logged in successfully");
+            swal({
+                // title: "Logged in Successfully!",
+                text: "Logged in Successfully!",
+                icon: "success",
+              });
+            setLoading1(false);
             console.log("Successfully posted data");
             setSessionStorage('organiser_details', data.userDetails);
             Navigate('/organiser_landing_page');
@@ -71,14 +99,17 @@ const Login = () => {
         console.log(data);
         if (data.status === 400 || data.status === 500 || !data) {
             console.log(data.message);
+            setLoading1(false);
             window.alert(`Could  not Login\nError ${data.message}`);
             console.log(`Could  not Login\nError ${data.message}`);
         } else {
             // console.log(data);
+            setLoading1(false);
             window.alert("Logged in successfully");
             console.log("Successfully posted data");
             setSessionStorage('organiser_details', data.userDetails);
-            // Navigate('/organiser_landing_page');
+            Navigate('/organiser_landing_page');
+            
         }
     };
 
@@ -91,6 +122,7 @@ const Login = () => {
     const [option1, setOption1] = useState(true);
 
 
+    const [loading1, setLoading1] = useState(false);
 
     const validate = (fieldValues = option1 ? values : values2) => {
         let temp = { ...errors };
@@ -136,11 +168,12 @@ const Login = () => {
     }
 
     const sendOTP = async () => {
-
+        
         if (values2.phonenumber.length < 10) {
             setErrors({...errors, ['phonenumber']:'Enter a valid phone number to receive OTP'});
             return
         };
+        setLoading1(true);
         setCounter(30);
         console.log("clicked send OTP");
         const res = await fetch(`${base_url}/loginOTP?phonenumber=${values2.phonenumber}&channel=sms`, {
@@ -150,14 +183,28 @@ const Login = () => {
             },
             // body: JSON.stringify(jsonData),
         });
+        // setCounter(2);
         const data = await res.json();
         console.log(data);
         if (data.status === 400 || data.status === 500 || !data) {
             console.log(data.message);
             window.alert(`Could  not deliver OTP\nError ${data.message}`);
             console.log(`Could  not deliver OTP\nError ${data.message}`);
+            setLoading1(false);
         } else {
             // console.log(data);
+            if(data.message==="User Not found"){
+                setErrors({...errors, ['phonenumber']:'Enter a registered phone number to receive OTP'});
+                setLoading1(false);
+                setCounter(0);
+                setTimeout(() => {
+                    alert("Please enter a registered phone number");
+                }, 100);
+                
+                return 
+            }
+            setCounter(0);
+            setLoading1(false);
             window.alert("OTP deliverered successfully");
             console.log("Successfully posted OTP data");
         }
@@ -176,7 +223,8 @@ const Login = () => {
         <div className={styles.container_cover}>
             <div className={styles.container2}>
                 <h2 className={styles.h2}>LOGIN</h2>
-
+                
+                {loading1 && <LinearProgress/>}
                 <div onClick={() => { setOption1(true); setErrors({}) }} style={option1 ? { borderBottom: '7px solid #8E1B1B' } : {}} className={styles.login_option}>
                     <h3>Username</h3>
                 </div>

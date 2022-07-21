@@ -4,6 +4,7 @@ import styles from './table.module.css';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Paper from '@mui/material/Paper';
 import { initial_staging, base_url2, useSessionStorage } from '../initializers/init_organiser';
+import LinearProgress from '@mui/material/LinearProgress';
 
 const max =(a, b)=> {return a>b?a:b};
 
@@ -14,6 +15,7 @@ const Tnm_staging_table = (props) => {
     
 
     const fetchStaging = async () => {
+        setLoading(true);
         try {
             const res = await fetch(
                 `${base_url2}/getStagingData/${patient_details.phr_id}`,
@@ -29,8 +31,10 @@ const Tnm_staging_table = (props) => {
             const data = await res.json();
             setStaging(data.data);
             console.log(data);
+            setLoading(false);
         } catch (error) {
             console.log(error);
+            setLoading(false);
         }
     };
 
@@ -68,8 +72,11 @@ const Tnm_staging_table = (props) => {
         // setStaging(staging.filter((t) => t !== item));
     }
 
+    const [loading, setLoading] = useState(false);
+
     return (
         <Paper elevation={4} className={styles.table_report} >
+            {loading && <LinearProgress />}
             <TableContainer sx={{ maxHeight:'45vh' }}>
                 <Table className={styles.TableBody}>
                     <TableBody className={styles.TableBody} >

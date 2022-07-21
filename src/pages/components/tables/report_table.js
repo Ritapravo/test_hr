@@ -4,14 +4,17 @@ import styles from './table.module.css';
 import { base_url, base_url2, useSessionStorage } from '../initializers/init_organiser';
 import LinkRoundedIcon from '@mui/icons-material/LinkRounded';
 import DeleteIcon from '@mui/icons-material/Delete';
+import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
+import LinearProgress from '@mui/material/LinearProgress';
 
 const max = (a, b) => { return a > b ? a : b };
 
 
-const fetchReports = async (patient_details, setReports) => {
+const fetchReports = async (patient_details, setReports, setLoading) => {
+    setLoading(true);
     try {
         const res = await fetch(
-            `${base_url}/getCuratedReports/${patient_details.phr_id}`,
+            `${base_url}/getCuratedReports/${patient_details.p_id}`,
             {
                 method: "GET",
                 headers: {
@@ -26,8 +29,10 @@ const fetchReports = async (patient_details, setReports) => {
             throw(data.messgae)
         setReports(data.data)
         console.log(data);
+        setLoading(false);
     } catch (error) {
         console.log(error);
+        setLoading(false);
     }
 };
 
@@ -37,11 +42,19 @@ const Report_table = (props) => {
     patient_details = useSessionStorage("patient_details_organiser");
 
     const { reports, setReports} = props;
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        if (patient_details) {
+            fetchReports(patient_details, setReports, setLoading);
+        }
+    }, [patient_details]);
+
 
     const deleteReportFromDB = async (item) => {
         try {
             const res = await fetch(
-                `${base_url}/removeCuratedReport/${patient_details.phr_id}/${item._id}`,
+                `${base_url}/removeCuratedReport/${item._id}`,
                 {
                     method: "DELETE",
                     headers: {
@@ -52,7 +65,8 @@ const Report_table = (props) => {
             );
 
             const data = await res.json();
-            setReports(reports.filter((t) => t !== item));
+            // setReports(reports.filter((t) => t !== item));
+            fetchReports(patient_details, setReports, setLoading);
             alert('Report deleted from database');
         } catch (error) {
             console.log(error);
@@ -69,13 +83,10 @@ const Report_table = (props) => {
 
     
 
-    useEffect(() => {
-        if (patient_details) {
-            fetchReports(patient_details, setReports);
-        }
-    }, [patient_details]);
+    
     return (
         <div className={styles.table_report}>
+            {loading && <LinearProgress/>}
             <TableContainer sx={{ maxHeight: '45vh' }}>
                 <Table className={styles.TableBody}>
                     <TableBody className={styles.TableBody} >
@@ -92,9 +103,11 @@ const Report_table = (props) => {
                                 <TableCell className={styles.tableCell} width='10%' ><p>{item.reportDate.slice(0, 10)}</p></TableCell>
                                 <TableCell className={styles.tableCell} width='15%' ><p>{item.report_type}</p></TableCell>
                                 <TableCell className={styles.tableCell} width='30%' >
-                                    <a href={`${base_url2}/getPatientReport/${patient_details.phr_id}/${item._id}`} target="_blank">
+                                    <a href={`${base_url2}/getPatientReport/${item._id}`} target="_blank" title='click here to view the document'>
                                         <p style={{ display: 'inline-block', width: '100%' }}>{item.saved_filename}
-                                        <LinkRoundedIcon style={{ float: 'right', cursor: 'pointer', marginRight: '1vw' }} /></p>
+                                        <LinkRoundedIcon style={{ float: 'right', cursor: 'pointer', marginRight: '1vw' }} />
+                                        
+                                        </p>
                                     </a>
                                 </TableCell>
                                 <TableCell style={{ textAlign: 'center', padding: '1vh 0' }} width='40%' >
